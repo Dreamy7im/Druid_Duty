@@ -156,7 +156,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolSpeed: 2
   chaseSpeed: 5
-  detectRange: 10
   patrolRadius: 20
 --- !u!114 &5758858600258336593
 MonoBehaviour:
@@ -171,8 +170,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Range: 50
-  FieldOfViewAngle: 65
+  FieldOfViewAngle: 85
   Player: {fileID: 0}
+  ObstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &1668241584523477799
 MonoBehaviour:
   m_ObjectHideFlags: 0

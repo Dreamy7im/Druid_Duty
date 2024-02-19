@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,6 @@ public class MutantBehaviour : MonoBehaviour
 {
     [SerializeField] private float patrolSpeed = 2f;
     [SerializeField] private float chaseSpeed = 5f;
-    [SerializeField] private float detectRange = 10f;
     [SerializeField] private float patrolRadius = 5f;
 
     private NavMeshAgent agent;
@@ -60,12 +60,25 @@ public class MutantBehaviour : MonoBehaviour
         {
             agent.SetDestination(target);
             agent.speed = chaseSpeed;
+            if (Vector3.Distance(transform.position, target) < 0.4f)
+            {
+                state = State.Attack;
+            }
         }
     }
 
     private void Attack()
     {
-        // Attack logic here
+        if (Vector3.Distance(transform.position, target) > 1f)
+        {
+            state = State.Chase;
+        }
+    }
+
+    public void DetectPlayer(Transform Player)
+    {
+        target = Player.position;
+        state = State.Chase;
     }
 
     private void SetRandomDestination()
@@ -74,8 +87,16 @@ public class MutantBehaviour : MonoBehaviour
         randomDirection += transform.position;
         NavMeshHit hit;
         NavMesh.SamplePosition(randomDirection, out hit, patrolRadius, NavMesh.AllAreas);
-        target = hit.position;
-        agent.SetDestination(target);
-        agent.speed = patrolSpeed;
+
+        if (Vector3.Distance(transform.position, hit.position) < 8f)
+        {
+            SetRandomDestination();
+        }
+        else
+        {
+            target = hit.position;
+            agent.SetDestination(target);
+            agent.speed = patrolSpeed;
+        }
     }
 }

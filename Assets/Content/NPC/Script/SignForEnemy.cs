@@ -8,8 +8,10 @@ public class SignForEnemy : MonoBehaviour
     [SerializeField] private float FieldOfViewAngle;
     [SerializeField] private Transform Player;
     private MutantBehaviour mutantBehaviour;
-    public bool FindPlayerObject { get; private set; }
 
+    RaycastHit hitInfo;
+
+    [SerializeField] private LayerMask ObstacleMask;
 
     private void Start()
     {
@@ -34,15 +36,22 @@ public class SignForEnemy : MonoBehaviour
                 float angle = Vector3.Angle(directionToTarget, transform.forward);
                 if (angle < FieldOfViewAngle * 0.5f)
                 {
-                    FindPlayerObject = true;
-                    Player = collider.gameObject.transform;
-
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawLine(transform.position, collider.transform.position);
+                    if (Physics.Raycast(transform.position, directionToTarget, out hitInfo, Range, ObstacleMask))
+                    {
+                        Debug.DrawRay(transform.position, directionToTarget * hitInfo.distance, Color.yellow);
+                        Debug.Log("Obstacle detected between enemy and player!");
+                    }
+                    else
+                    {
+                        Player = collider.gameObject.transform;
+                        mutantBehaviour.DetectPlayer(Player);
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawLine(transform.position, collider.transform.position);
+                    }
                 }
                 else
                 {
-                    FindPlayerObject = true;
+
                 }
             }
         }
