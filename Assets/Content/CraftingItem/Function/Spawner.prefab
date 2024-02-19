@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92bd511fa62eaad4686122a871c8c49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfObjectsToSpawn: 50
+  numberOfObjectsToSpawn: 25
   spawnRange: 25
   objectPrefabs:
   - {fileID: 2087153826571114495, guid: 524792816f4e65745b8ed53572d3487b, type: 3}

@@ -26,7 +26,7 @@ public class MutantBehaviour : MonoBehaviour
     {
         PatrolRange = 10f;
         agent = GetComponent<NavMeshAgent>();
-        state = State.Patrol; // Ustawiamy stan poczπtkowy na Patrol
+        state = State.Patrol; 
         FindNewTarget();
     }
 
@@ -54,10 +54,8 @@ public class MutantBehaviour : MonoBehaviour
 
     private void PatrolBehaviour()
     {
-        // Ustaw cel nawigacji na target
         agent.SetDestination(target);
 
-        // Sprawdü czy obiekt jest wystarczajπco blisko celu, jeúli tak - znajdü nowy cel
         if (Vector3.Distance(transform.position, target) < minDistanceToTarget)
         {
             StartCoroutine(WaitForNewTarget());
@@ -66,24 +64,20 @@ public class MutantBehaviour : MonoBehaviour
 
     private void FindNewTarget()
     {
-        // Losuj nowπ pozycjÍ w obrÍbie PatrolRange od spawnera
         Vector3 randomDirection = Random.insideUnitSphere * PatrolRange;
         randomDirection += spawner.position;
 
         NavMeshHit navHit;
         NavMesh.SamplePosition(randomDirection, out navHit, PatrolRange, NavMesh.AllAreas);
 
-        // Sprawdzamy odleg≥oúÊ miÍdzy nowym celem a aktualnπ pozycjπ
         float distanceToNewTarget = Vector3.Distance(navHit.position, transform.position);
 
-        // Jeúli nowy cel jest zbyt blisko, wylosuj nowy cel
         if (distanceToNewTarget < 5f)
         {
             FindNewTarget();
-            return; // Wyjdü z funkcji, aby uniknπÊ ustawiania celu, gdy jest zbyt blisko
+            return; 
         }
 
-        // Ustaw nowy cel
         target = navHit.position;
     }
 
@@ -107,6 +101,6 @@ public class MutantBehaviour : MonoBehaviour
 
     private void AttackBehaviour()
     {
-        // Logika ataku na gracza
+        
     }
 }
