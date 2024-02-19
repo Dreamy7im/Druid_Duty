@@ -38,7 +38,11 @@ public class Damagable : MonoBehaviour
     {
         currentHealth = maxHealth;
         currentShield = maxShield;
-        UpdateUI();
+
+        if (type == ObjectType.Player)
+        {
+            UpdateUI();
+        }
     }
 
     private void Update()

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfObjectsToSpawn: 50
-  spawnRange: 50
+  spawnRange: 25
   objectPrefabs:
   - {fileID: 2087153826571114495, guid: 524792816f4e65745b8ed53572d3487b, type: 3}
   CooldownResp: 2
