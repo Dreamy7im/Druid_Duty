@@ -1,106 +1,81 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class MutantBehaviour : MonoBehaviour
 {
+    [SerializeField] private float patrolSpeed = 2f;
+    [SerializeField] private float chaseSpeed = 5f;
+    [SerializeField] private float detectRange = 10f;
+    [SerializeField] private float patrolRadius = 5f;
+
     private NavMeshAgent agent;
-    public float PatrolRange { private get; set; }
-    [SerializeField] private float minDistanceToTarget = 0.1f;
-
-    [SerializeField] private float PlayerCheseSpeed;
-
-    public Transform spawner { private get; set; }
-
-    public Vector3 target { private get; set; }
+    private Vector3 target;
+    private State state = State.Patrol;
 
     private enum State
     {
+        Idle,
         Patrol,
         Chase,
         Attack
     }
-    private State state;
 
     private void Start()
     {
-        PatrolRange = 10f;
         agent = GetComponent<NavMeshAgent>();
-        state = State.Patrol; 
-        FindNewTarget();
+        SetRandomDestination();
     }
 
     private void Update()
     {
         switch (state)
         {
+            case State.Idle:
+                break;
             case State.Patrol:
-                PatrolBehaviour();
+                Patrol();
                 break;
             case State.Chase:
-                ChaseBehaviour();
+                Chase();
                 break;
             case State.Attack:
-                AttackBehaviour();
+                Attack();
                 break;
         }
     }
 
-    public void FindPlayer(Transform Player)
+    private void Patrol()
     {
-        target = Player.transform.position;
-        state = State.Chase;
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        {
+            SetRandomDestination();
+        }
     }
 
-    private void PatrolBehaviour()
+    private void Chase()
     {
+        if (target != null)
+        {
+            agent.SetDestination(target);
+            agent.speed = chaseSpeed;
+        }
+    }
+
+    private void Attack()
+    {
+        // Attack logic here
+    }
+
+    private void SetRandomDestination()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * patrolRadius;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomDirection, out hit, patrolRadius, NavMesh.AllAreas);
+        target = hit.position;
         agent.SetDestination(target);
-
-        if (Vector3.Distance(transform.position, target) < minDistanceToTarget)
-        {
-            StartCoroutine(WaitForNewTarget());
-        }
-    }
-
-    private void FindNewTarget()
-    {
-        Vector3 randomDirection = Random.insideUnitSphere * PatrolRange;
-        randomDirection += spawner.position;
-
-        NavMeshHit navHit;
-        NavMesh.SamplePosition(randomDirection, out navHit, PatrolRange, NavMesh.AllAreas);
-
-        float distanceToNewTarget = Vector3.Distance(navHit.position, transform.position);
-
-        if (distanceToNewTarget < 5f)
-        {
-            FindNewTarget();
-            return; 
-        }
-
-        target = navHit.position;
-    }
-
-    private IEnumerator WaitForNewTarget()
-    {
-        yield return new WaitForSeconds(2f);
-
-        FindNewTarget();
-    }
-
-    private void ChaseBehaviour()
-    {
-        agent.SetDestination(target);
-        agent.speed = PlayerCheseSpeed;
-
-        if (Vector3.Distance(transform.position, target) < 1f)
-        {
-            agent.velocity = Vector3.zero;
-        }
-    }
-
-    private void AttackBehaviour()
-    {
-        
+        agent.speed = patrolSpeed;
     }
 }

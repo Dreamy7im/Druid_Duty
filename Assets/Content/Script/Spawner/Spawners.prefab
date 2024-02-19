@@ -78,5 +78,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MutantList:
   - {fileID: 7090907512422658557, guid: b6a28a57a31ec3649b8a3554054c1013, type: 3}
-  SpawnRange: 20
-  SpawnCount: 3
+  SpawnRange: 50
+  SpawnCount: 7

@@ -6,10 +6,10 @@ public class SignForEnemy : MonoBehaviour
 {
     [SerializeField] private float Range;
     [SerializeField] private float FieldOfViewAngle;
-
     [SerializeField] private Transform Player;
-
     private MutantBehaviour mutantBehaviour;
+    public bool FindPlayerObject { get; private set; }
+
 
     private void Start()
     {
@@ -18,10 +18,8 @@ public class SignForEnemy : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // Obliczamy kierunek w którym przeciwnik patrzy
         Vector3 direction = Quaternion.Euler(0, FieldOfViewAngle * 0.5f, 0) * transform.forward;
 
-        // Rysujemy sto¿ek pola widzenia
         Gizmos.color = Color.yellow;
         Gizmos.DrawRay(transform.position, direction.normalized * Range);
         Gizmos.DrawLine(transform.position, transform.position + Quaternion.Euler(0, -FieldOfViewAngle * 0.5f, 0) * transform.forward * Range);
@@ -36,10 +34,15 @@ public class SignForEnemy : MonoBehaviour
                 float angle = Vector3.Angle(directionToTarget, transform.forward);
                 if (angle < FieldOfViewAngle * 0.5f)
                 {
+                    FindPlayerObject = true;
                     Player = collider.gameObject.transform;
-                    mutantBehaviour.FindPlayer(Player);
+
                     Gizmos.color = Color.red;
                     Gizmos.DrawLine(transform.position, collider.transform.position);
+                }
+                else
+                {
+                    FindPlayerObject = true;
                 }
             }
         }

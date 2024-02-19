@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8420442277821378467}
   - component: {fileID: 9012162508482997946}
   - component: {fileID: 4580452660061875531}
-  - component: {fileID: 7028681560258808598}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7028681560258808598
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7043403284215240594}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7090907512422658557
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +96,7 @@ GameObject:
   - component: {fileID: 353541705100036997}
   - component: {fileID: 5758858600258336593}
   - component: {fileID: 1668241584523477799}
+  - component: {fileID: 3020034343663922597}
   m_Layer: 0
   m_Name: Radborn
   m_TagString: Untagged
@@ -167,8 +154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff6384033a5d674cabb884a395102a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistanceToTarget: 0.1
-  PlayerCheseSpeed: 2.5
+  patrolSpeed: 2
+  chaseSpeed: 5
+  detectRange: 10
+  patrolRadius: 20
 --- !u!114 &5758858600258336593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c1e1e10c04b274c81be0dd8ba4a294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Range: 20
+  Range: 50
   FieldOfViewAngle: 65
   Player: {fileID: 0}
 --- !u!114 &1668241584523477799
@@ -207,6 +196,19 @@ MonoBehaviour:
   HeatlhUI: {fileID: 0}
   HealtUnderUI: {fileID: 0}
   type: 0
+--- !u!65 &3020034343663922597
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090907512422658557}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &7805723571446640297
 GameObject:
   m_ObjectHideFlags: 0
