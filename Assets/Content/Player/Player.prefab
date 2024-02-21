@@ -254,7 +254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 199fa525778198c429367a82792d42ce, type: 3}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4862,7 +4862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  maxShield: 0
+  maxShield: 50
   currentShield: 0
   HealthColor: {r: 0.8773585, g: 0.07173366, b: 0.07173366, a: 1}
   ShieldColor: {r: 0.44120082, g: 0.66972053, b: 0.9811321, a: 1}

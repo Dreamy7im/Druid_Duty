@@ -45,6 +45,8 @@ public class BuildingSystem : MonoBehaviour
     {
         CurrentBuilding = true;
 
+        
+
         // Pobieramy budynk z listy na podstawie indeksu
         ItemToCraft = BuildingObject;
 

@@ -61,7 +61,6 @@ public class CreateSpawningMap : MonoBehaviour
         // Zastosowanie zmian do tekstury
         texture.Apply();
 
-        terrain.GetComponent<TerrainSpawnerHolder>().ResourceMask = texture;
 
         // Zapisanie tekstury do pliku PNG
         byte[] textureBytes = texture.EncodeToPNG();
