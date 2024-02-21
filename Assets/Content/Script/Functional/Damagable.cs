@@ -36,6 +36,11 @@ public class Damagable : MonoBehaviour
 
     private void Start()
     {
+        //HealthColor = new Color(224, 18, 18, 255);
+        //ShieldColor = new Color(113, 171, 150, 255);
+        //BackHealthColor = new Color(132, 8, 15, 45);
+
+
         currentHealth = maxHealth;
         currentShield = maxShield;
 

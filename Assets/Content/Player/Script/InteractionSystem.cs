@@ -24,7 +24,8 @@ public class InteractionSystem : MonoBehaviour
     private CraftingSystem _CraftingSystem;
 
     private bool wasHit = false; 
-    private RaycastHit lastHit; 
+    private RaycastHit lastHit;
+    private GameObject previousHitObject;
 
     private void Start()
     {
@@ -54,24 +55,38 @@ public class InteractionSystem : MonoBehaviour
         {
             ShowCraftingUI(hit);
         }
+        else
+        {
+            if (previousHitObject != null)
+            {
+                previousHitObject.GetComponent<Renderer>().material.SetInt("_Interaction", 0);
+                previousHitObject = null;
+            }
+        }
 
-        
+
 
     }
 
     private void ShowCraftingUI(RaycastHit hit)
     {
-        CraftingHolder RefCrafting = hit.collider.gameObject.GetComponent<CraftingHolder>();
+        CraftingHolder currentCraftingHolder = hit.collider.gameObject.GetComponent<CraftingHolder>();
 
-        if (RefCrafting != null && Input.GetKeyDown(InteractionKey))
+        if (currentCraftingHolder != null)
         {
-            Debug.Log("StartCrafting");
-            _playerController.UsingMenuRotate();
+            // Jeœli obiekt jest trafiony przez raycast
+            currentCraftingHolder.gameObject.GetComponent<Renderer>().material.SetInt("_Interaction", 1);
+            previousHitObject = currentCraftingHolder.gameObject;
 
-
-            _CraftingSystem.CraftWay = (RefCrafting.CraftOrBuild);
-            _CraftingSystem.SetUpCrafting(RefCrafting.CraftingObjectList);
+            if (Input.GetKeyDown(InteractionKey))
+            {
+                Debug.Log("StartCrafting");
+                _playerController.UsingMenuRotate();
+                _CraftingSystem.CraftWay = (currentCraftingHolder.CraftOrBuild);
+                _CraftingSystem.SetUpCrafting(currentCraftingHolder.CraftingObjectList);
+            }
         }
+        
     }
 
     private void OnRaycastHitSomethingOnItemLayer(RaycastHit hit)
