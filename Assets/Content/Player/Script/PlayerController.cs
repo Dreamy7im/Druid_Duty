@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
     [SerializeField] private float jumpHeight = 2f;
+    private bool CanMove;
 
     [Header("Movement Settings too heavy")]
     [SerializeField] private float movementSpeedTooHeavy = 5f;
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        CanMove = true;
         _animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
@@ -88,6 +90,7 @@ public class PlayerController : MonoBehaviour
     public void UsingMenuRotate()
     {
         UseMenu = !UseMenu;
+        CanMove = !CanMove;
     }
 
     private void Update()
@@ -97,7 +100,10 @@ public class PlayerController : MonoBehaviour
             HandleRotation();
         }
 
-        HandleMovement();
+        if (CanMove)
+        {
+            HandleMovement();
+        }
         HandleSprint();
         HandleJump();
         HandleGravity();

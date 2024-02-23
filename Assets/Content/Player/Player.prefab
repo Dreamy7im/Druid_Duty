@@ -6300,6 +6300,7 @@ MonoBehaviour:
   InventoryScript: {fileID: 2685785250419534148}
   InteractionKey: 102
   _playerController: {fileID: 8751056929311980281}
+  _animator: {fileID: 5691796869672726163}
 --- !u!114 &891562784929592441
 MonoBehaviour:
   m_ObjectHideFlags: 0

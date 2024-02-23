@@ -18,6 +18,7 @@ public class InteractionSystem : MonoBehaviour
     [SerializeField] private KeyCode InteractionKey;
 
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private Animator _animator;
 
     private PlayerStats _playerStats;
 
@@ -96,6 +97,7 @@ public class InteractionSystem : MonoBehaviour
             Debug.Log("TryHarvest");
             if (InventoryScript.CheckIfCanAddSomething(hit.collider.gameObject.GetComponent<ItemInfoHolder>().ItemInfo))
             {
+                _animator.SetTrigger("TakeItem");
                 hit.collider.gameObject.SetActive(false);
             }
         }
