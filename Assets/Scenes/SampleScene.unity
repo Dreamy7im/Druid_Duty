@@ -154,7 +154,7 @@ Transform:
   m_Children:
   - {fileID: 958763942}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
@@ -341,7 +341,7 @@ PrefabInstance:
     - target: {fileID: 2473920948661319939, guid: 24fddb763ef41a54582255a58d00ae87,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24fddb763ef41a54582255a58d00ae87, type: 3}
@@ -606,7 +606,7 @@ Transform:
   m_Children:
   - {fileID: 1576173990}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1357036805
 BoxCollider:
@@ -829,7 +829,7 @@ PrefabInstance:
     - target: {fileID: 7947526006299244061, guid: 27e93cc6cae98fc439b543284b3ba425,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7947526006299244061, guid: 27e93cc6cae98fc439b543284b3ba425,
         type: 3}

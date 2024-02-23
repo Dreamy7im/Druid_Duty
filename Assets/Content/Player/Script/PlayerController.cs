@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image StaminaUI;
     [SerializeField] private Volume GlobalVolume;
+
+    private Animator _animator;
    
 
     private CharacterController characterController;
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        _animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -180,6 +183,15 @@ public class PlayerController : MonoBehaviour
         float moveSideways = Input.GetAxis("Horizontal") * movementSpeed;
 
         moveDirection = (transform.forward * moveForward) + (transform.right * moveSideways);
+
+        if (moveDirection.magnitude > 0 && !isSprinting)
+        {
+            _animator.SetFloat("PlayerSpeed", 0.5f);
+        }
+        else if(moveDirection.magnitude == 0)
+        {
+            _animator.SetFloat("PlayerSpeed", 0f);
+        }
         characterController.Move(moveDirection * Time.deltaTime);
     }
 
@@ -210,6 +222,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(Sprint) && stamina > 0f)
             {
+                _animator.SetFloat("PlayerSpeed", 1f);
                 isSprinting = true;
                 currentStaminaRegenDelay = staminaRegenDelay; // Reset delay for stamina regeneration when starting a new sprint
             }
@@ -234,6 +247,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyUp(Sprint) || stamina <= 0)
             {
+                _animator.SetFloat("PlayerSpeed", 0.5f);
                 isSprinting = false;
             }
 
@@ -244,6 +258,7 @@ public class PlayerController : MonoBehaviour
 
                 if (stamina <= 0)
                 {
+                    _animator.SetFloat("PlayerSpeed", 0.5f);
                     isSprinting = false;
                     stamina = 0f; // Stamina should not go below 0
                 }

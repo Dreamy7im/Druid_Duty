@@ -69,10 +69,13 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < numberOfObjectsToSpawn; i++)
             {
+
+                Vector3 randomEulerRotation = new Vector3(0f, Random.Range(0f, 360f), 0f);
+                Quaternion randomRotation = Quaternion.Euler(randomEulerRotation);
                 GameObject randomPrefab = objectPrefabs[Random.Range(0, objectPrefabs.Length)];
                 Vector3 randomPosition = GetRandomPosition(transform.position, spawnRange);
                 SpawnObjectPosition.Add(randomPosition);
-                spawnObjects.Add(ObjectPooling.Instance.GetPooledObject(randomPrefab.name, randomPosition, Quaternion.identity)); 
+                spawnObjects.Add(ObjectPooling.Instance.GetPooledObject(randomPrefab.name, randomPosition, randomRotation));
             }
         }
     }
